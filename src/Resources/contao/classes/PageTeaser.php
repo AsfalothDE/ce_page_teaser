@@ -1,5 +1,7 @@
 <?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
 
+namespace AsfalothDe\CePageTeaserBundle;
+
 /**
  * Contao Open Source CMS
  * Copyright (C) 2005-2010 Leo Feyer
@@ -10,12 +12,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -26,8 +28,8 @@
  * @package    PageTeaser
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
- 
-class PageTeaser extends ContentElement
+
+class PageTeaser extends \ContentElement
 {
 
 	/**
@@ -48,7 +50,7 @@ class PageTeaser extends ContentElement
 		if (TL_MODE == 'BE' && !defined('EX_TL_MODE_FE'))
 		{
 			$strContent = parent::generate();
-			
+
 			if ($this->pageCode < 0)
 			{
 				$strContent = '<div style="color:#a22;font-weight:bold;">→ '.$this->pageLink.'</div>' . $strContent;
@@ -68,13 +70,13 @@ class PageTeaser extends ContentElement
 		{
 			if (!empty($GLOBALS['TL_CONFIG']['pageTeaserJsLink']) && !defined('PAGE_TEASER_JS_LINK'))
 			{
-				$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/ce_page_teaser/assets/scripts/page_teaser.js|static';
+				$GLOBALS['TL_JAVASCRIPT'][] = 'bundles/cepageteaser/js/page_teaser.js|static';
 
 				define('PAGE_TEASER_JS_LINK', 1);
 			}
 
 			$strContent = parent::generate();
-			
+
 			if ($this->pageCode > -1)
 			{
 				return $strContent;
@@ -103,11 +105,11 @@ class PageTeaser extends ContentElement
 			if ($objArticle->next())
 			{
 				$objPage = \Database::getInstance()->prepare("SELECT * FROM `tl_page` WHERE `id`=?")->execute($objArticle->pid)->next();
-			}	
+			}
 		}
 
 		$rootPage = $this->getRootPage($objPage->id);
-		
+
 		if (TL_MODE == 'BE' && !defined('EX_TL_MODE_FE'))
 		{
 			$objPage->domain = $rootPage['dns'];
@@ -166,7 +168,7 @@ class PageTeaser extends ContentElement
 				{
 					$link .= $this->generateFrontendUrl($objTargetPage->row());
 				}
-			}	
+			}
 		}
 
 		$this->pageLink = $link;
@@ -196,7 +198,7 @@ class PageTeaser extends ContentElement
 		$this->Template->href = $link;
 		$this->Template->headline = $this->headline;
 		$this->Template->text = $this->text;
-		$this->Template->showMore = $this->page_teaser_show_more;		
+		$this->Template->showMore = $this->page_teaser_show_more;
 		$this->Template->readMore = specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['readMore'], $objTargetPage->title));
 		$this->Template->more = $GLOBALS['TL_LANG']['MSC']['more'];
 

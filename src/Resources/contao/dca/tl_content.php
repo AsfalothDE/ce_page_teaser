@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -100,7 +100,7 @@ class page_teaser extends Backend
 		if (count($arrPages[0]) == count($arrPages[1]))
 		{
 			$arrPageMap = array();
-			
+
 			for ($i=0; $i<count($arrPages[0]); $i++)
 			{
 				$arrPageMap[$arrPages[0][$i]] = $arrPages[1][$i];
@@ -112,7 +112,7 @@ class page_teaser extends Backend
 					$this->Database->prepare("SELECT `id` FROM `tl_article` WHERE `pid`=? ORDER BY `sorting`")->execute($arrPages[0][$i])->fetchAllAssoc(),
 					$this->Database->prepare("SELECT `id` FROM `tl_article` WHERE `pid`=? ORDER BY `sorting`")->execute($arrPages[1][$i])->fetchAllAssoc()
 				);
-				
+
 				if (count($arrArticles[0]) && count($arrArticles[0]) == count($arrArticles[1]))
 				{
 					for ($t=0; $t<count($arrArticles[0]); $t++)
@@ -121,7 +121,7 @@ class page_teaser extends Backend
 							$this->Database->prepare("SELECT `id`, `page_teaser_page` FROM `tl_content` WHERE `type`='page_teaser' AND `pid`=? ORDER BY `sorting`")->execute($arrArticles[0][$t])->fetchAllAssoc(),
 							$this->Database->prepare("SELECT `id` FROM `tl_content` WHERE `type`='page_teaser' AND `pid`=? ORDER BY `sorting`")->execute($arrArticles[1][$t])->fetchAllAssoc()
 						);
-						
+
 						if (count($arrPageTeaser[0]) && count($arrPageTeaser[0]) == count($arrPageTeaser[1]))
 						{
 							for ($p=0; $p<count($arrPageTeaser[0]); $p++)
@@ -146,7 +146,7 @@ class page_teaser extends Backend
 			$this->log('Copy error '.count($arrPages[0]).' :: '.count($arrPages[1]), 'PageTeaser', TL_GENERAL);
 		}
 	}
-	
+
 	protected function getChildPages($pageId)
 	{
 		$pageArray = array();
@@ -155,7 +155,7 @@ class page_teaser extends Backend
 
 		while ($objPages->next())
 		{
-			$pageArray[] = $objPages->id;			
+			$pageArray[] = $objPages->id;
 			$pageArray = array_merge($pageArray, $this->getChildPages($objPages->id));
 		}
 

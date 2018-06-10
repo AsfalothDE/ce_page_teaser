@@ -44,6 +44,11 @@
       "preferred-install": "dist"
     },
     "extra": {
+      "contao": {
+        "runonce": [
+          "src/Resources/contao/config/runonce.php"
+        ]
+      },
       "contao-manager-plugin": "AsfalothDe\\CePageTeaserBundle\\ContaoManager\\Plugin"
     }
 }
